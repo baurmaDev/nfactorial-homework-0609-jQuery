@@ -3,6 +3,11 @@
     $('#form-mad').submit(function() {
         console.log("MAD LIBS")
         const arr = $(this).serializeArray();
+        const d = new Date();
+        d.setTime(d.getTime() + (7*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = `name=${arr[0].value}; expires=${expires}`;
+
         const settings = {
             "async": true,
             "crossDomain": true,
@@ -34,3 +39,25 @@
         
     })
 
+const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }    
+}
+
+toggleSwitch.addEventListener('change', switchTheme, false);
