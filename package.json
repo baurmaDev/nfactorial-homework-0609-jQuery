@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "build --output public",
     "gitPush": "git add . && echo 'Enter Commit Message' && git commit -m \"$message\" && git push"
 
   },
